@@ -1,0 +1,30 @@
+{% load static %}
+{# Load the tag library #}
+{% load bootstrap5 %}
+
+{# Load CSS and JavaScript #}
+{% bootstrap_css %}
+{% bootstrap_javascript %}
+
+{# Display django.contrib.messages as Bootstrap alerts #}
+{% bootstrap_messages %}
+
+<!--Loads google account data for current user-->
+{% load socialaccount %}
+
+<html>
+
+<link href="cover.css" rel="stylesheet">
+  </head>
+  <body class="d-flex h-100 text-center text-white bg-dark">
+
+    <div class="cover-container d-flex w-100 h-100 p-3 justify-content-center flex-column">
+      <main class="px-3">
+        <h1>Welcome to the UVA Assignment Adder</h1>
+        <p class="lead">
+          <a href="{% provider_login_url 'google' %}" class="btn btn-lg btn-secondary fw-bold border-white bg-black"> Sign in</a>
+        </p>
+      </main>
+    </div>
+  </body>
+</html>

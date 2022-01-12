@@ -1,0 +1,96 @@
+{% load static %} 
+{# Load the tag library #} 
+{% load bootstrap5 %} 
+{# Load CSSand JavaScript #} 
+{% bootstrap_css %} 
+{% bootstrap_javascript %} 
+{# Display django.contrib.messages as Bootstrap alerts #} 
+{% bootstrap_messages %}
+
+
+<div>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <a class="navbar-brand"  style="margin-left: 10px"
+      >Assignment Adder</a
+    >
+    <button
+      class="navbar-toggler"
+      type="button"
+      data-toggle="collapse"
+      data-target="#navbarSupportedContent"
+      aria-controls="navbarSupportedContent"
+      aria-expanded="false"
+      aria-label="Toggle navigation"
+    >
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'index'%}">Home</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'calendar2'%}">Calendar</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'addCourse'%}">Add Course</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'addAssignment'%}">Add Assignment</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'upload_note'%}">Upload Notes</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'note_list'%}">View Notes</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'assignment_list'%}">View Assignments</a>
+        </li>
+      </ul>
+    </div>
+    <div style="float: right">
+      <button
+        type="submit"
+        class="btn btn-secondary"
+        style="margin-right: 1vw"
+        onclick="location.href={% url 'logout'%}"
+      >
+        Logout
+      </button>
+    </div>
+  </nav>
+  
+  <form
+    action="{% url 'upload_note'%}"
+    method="post"
+    style="padding: 15px; width: 60%"
+    enctype="multipart/form-data"
+  >
+    
+    <fieldset style="padding: 15px">
+      <div>
+        <h1>Upload a Note!</h1>
+        <p>Add a note to get started.</p>
+      </div>
+      <div>
+        {% csrf_token %}{{form.as_p}}
+      </div>
+      <div>
+          <label>Enter Course Number: </label>
+          <select id="course_num" name="course_num">
+            {% for course in course_list %}
+            <option value={{course.id}}>{{course.course_name}}</option>
+            {% endfor %}
+          </select>
+        </div>
+    </fieldset>
+
+    <div style="padding: 15px">
+      <button type="submit" class="btn btn-primary">Submit</button>
+    </div>
+  </form>
+</div>
+

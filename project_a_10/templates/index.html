@@ -1,0 +1,155 @@
+{% load static %}
+{# Load the tag library #}
+{% load bootstrap5 %}
+{# Load CSSand JavaScript #}
+{% bootstrap_css %}
+{% bootstrap_javascript %}
+{# Display django.contrib.messages as Bootstrap alerts #}
+{% bootstrap_messages %}
+
+<html>
+  <div>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <a class="navbar-brand"  style="margin-left: 10px"
+      >Assignment Adder</a
+    >
+    <button
+      class="navbar-toggler"
+      type="button"
+      data-toggle="collapse"
+      data-target="#navbarSupportedContent"
+      aria-controls="navbarSupportedContent"
+      aria-expanded="false"
+      aria-label="Toggle navigation"
+    >
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'index'%}">Home</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'calendar2'%}">Calendar</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'addCourse'%}">Add Course</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'addAssignment'%}">Add Assignment</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'upload_note'%}">Upload Notes</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'note_list'%}">View Notes</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'assignment_list'%}">View Assignments</a>
+        </li>
+      </ul>
+    </div>
+    <div style="float: right">
+      <button
+        type="submit"
+        class="btn btn-secondary"
+        style="margin-right: 1vw"
+        onclick="location.href={% url 'logout'%}"
+      >
+        Logout
+      </button>
+    </div>
+  </nav>
+  </div>
+  <body>
+
+
+    <!-- <div style="margin: 10px">
+      <h1>Hello welcome to the home page we are still working on it</h1>
+      <p>
+        Welcome {{ user.first_name }} {{ user.last_name }}, You are logged in as
+        {{ user.username }}
+      </p>-->
+      
+      <!-- <div style="margin: 10px">
+        <a href="logout">Click here to logout</a>
+      </div>
+
+      <div style="margin: 10px">
+        <a href="{% url 'addCourse'%}">Click here to add a course</a>
+      </div>
+      <div style="margin: 10px">
+        <a href="{% url 'addAssignment'%}">Click here to add an assignment</a>
+      </div>
+      <div style="margin: 10px">
+        <a href="{% url 'note_list'%}">Click here to view notes</a>
+      </div>
+      <div style="margin: 10px">
+        <a href="{% url 'upload_note'%}">Click here to upload notes</a>
+      </div> -->
+
+      <div style="margin: 20px">  
+        <div class="col text-center text-secondary">
+      
+          <!--<h1>Hello welcome to the home page we are still working on it</h1>-->
+          <p>
+            Welcome {{ user.first_name }} {{ user.last_name }}, You are logged in as
+            {{ user.username }}
+          </p>
+        </div>
+
+          <!--Reference: https://www.w3schools.com/bootstrap4/bootstrap_cards.asp-->
+          <h2 class="text-center text-secondary">Courses</h2><br>
+          {% if course_list %}
+          <!--Source: https://www.w3schools.com/bootstrap4/tryit.asp?filename=trybs_card_columns&stacked=h-->
+          <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+          <div class="container">
+          <div class="card-columns">
+              {% for course in course_list %}
+              <div class="card border-info mb-3">
+                <div class="card-body text-center">
+              
+                <h4 class="card-title text-info"><a href="{% url 'students' course.course_num %}">
+                  {{ course.course_num }}</a> | {{course.course_name}}</h4>
+
+                  <h6><a href="{% url 'deleteCourse' course.id%}">Delete</a></h6>
+                </div>
+
+                </div>
+                <br>
+              {% endfor %}
+          </div>
+          </div>
+          {% else %}
+          <p>No courses added.</p>
+          {% endif %}
+      
+          <br>
+          <br>
+          <h2 class="text-center text-secondary">Assignments</h2><br>
+          {% if assignment_list %}
+          <!--Source: https://www.w3schools.com/bootstrap4/tryit.asp?filename=trybs_card_columns&stacked=h-->
+          <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+          <div class="container">
+            <div class="card-columns">
+            {% for assignment in assignment_list %}
+              <div class="card border-info mb-3">
+              <div class="card-body text-center text-info">
+              <h4 class="card-title">{{assignment.course_num.course_name}}</h4> 
+              <p>Assignment Name: {{assignment.assignment_name}}<br>
+                Due Date:
+              {{assignment.assignment_due_date}}</p><br>
+
+                <h6><a href="{% url 'deleteAssignment' assignment.id%}">Delete</a></h6>
+
+            </div>
+          </div>
+            {% endfor %}
+          {% else %}
+          <p>No assignment added.</p>
+          {% endif %}
+        </div>
+  </body>
+</html>
+

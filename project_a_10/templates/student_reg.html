@@ -1,0 +1,91 @@
+{% load static %}
+{# Load the tag library #}
+{% load bootstrap5 %}
+
+{# Load CSS and JavaScript #}
+{% bootstrap_css %}
+{% bootstrap_javascript %}
+
+{# Display django.contrib.messages as Bootstrap alerts #}
+{% bootstrap_messages %}
+
+<div>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <a class="navbar-brand"  style="margin-left: 10px"
+      >Assignment Adder</a
+    >
+    <button
+      class="navbar-toggler"
+      type="button"
+      data-toggle="collapse"
+      data-target="#navbarSupportedContent"
+      aria-controls="navbarSupportedContent"
+      aria-expanded="false"
+      aria-label="Toggle navigation"
+    >
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'index'%}">Home</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'calendar2'%}">Calendar</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'addCourse'%}">Add Course</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'addAssignment'%}">Add Assignment</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'upload_note'%}">Upload Notes</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'note_list'%}">View Notes</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'assignment_list'%}">View Assignments</a>
+        </li>
+      </ul>
+    </div>
+    <div style="float: right">
+      <button
+        type="submit"
+        class="btn btn-secondary"
+        style="margin-right: 1vw"
+        onclick="location.href={% url 'logout'%}"
+      >
+        Logout
+      </button>
+    </div>
+  </nav>
+    <div style="margin: 10px">
+
+
+
+  <h2>Course: {{course}}</h2>
+  <h3>Instructor: {{course_instructor}}</h3>
+  <h4>Meeting Time: {{course_time}}</h4>
+   <h4>Room: {{course_room}}</h4>
+  <h4>Course Description:</h4>
+  <p>{{description}}</p>
+  <h3>Student Registry</h3>
+  <ul>
+    {% for student in student_list%}
+    <li>
+      User Name : {{ student.username.username }}
+      <div>
+        Legal Name : {{student.username.first_name}}
+        {{student.username.last_name}}
+      </div>
+    </li>
+    {% endfor %}
+  </ul>
+</div>
+</div>
+
+

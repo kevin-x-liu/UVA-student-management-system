@@ -1,0 +1,91 @@
+{% load static %}
+{# Load the tag library #}
+{% load bootstrap5 %}
+
+{# Load CSS and JavaScript #}
+{% bootstrap_css %}
+{% bootstrap_javascript %}
+
+{# Display django.contrib.messages as Bootstrap alerts #}
+{% bootstrap_messages %}
+
+{% load socialaccount %}
+<body>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+      <a class="navbar-brand"  style="margin-left: 10px"
+        >Assignment Adder</a
+      >
+      <button
+        class="navbar-toggler"
+        type="button"
+        data-toggle="collapse"
+        data-target="#navbarSupportedContent"
+        aria-controls="navbarSupportedContent"
+        aria-expanded="false"
+        aria-label="Toggle navigation"
+      >
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'index'%}">Home</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'calendar2'%}">Calendar</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'addCourse'%}">Add Course</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'addAssignment'%}"
+              >Add Assignment</a
+            >
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'upload_note'%}">Upload Notes</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'note_list'%}">View Notes</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'assignment_list'%}">View Assignments</a>
+          </li>
+        </ul>
+      </div>
+      <div style="float: right">
+        <button
+          type="submit"
+          class="btn btn-secondary"
+          style="margin-right: 1vw"
+          onclick="location.href={% url 'logout'%}"
+        >
+          Logout
+        </button>
+      </div>
+    </nav>
+</body>
+
+<br style='line-height: 12px;'/>
+
+{% block content %}
+<center>
+<div margin: 10px;>
+    <p style="font-family:helvetica; font-size:25px">Assignments for {{month}} {{year}}</p>
+    <a style="font-family:helvetica;border: 1px solid #68B5E5; border-radius: 5px; padding: 5px; color:#68B5E5" href="{% url 'calendar' p_m_year prev_month %}"> << Prev Month </a>
+	<a style="font-family:helvetica;border: 1px solid #68B5E5; border-radius: 5px; padding: 5px; color:#68B5E5" href="{% url 'calendar' n_m_year next_month %}"> Next Month    >> </a>
+</div>
+</center>
+{% endblock %}
+
+<br>
+
+{% block content1 %}
+<center> 
+    {{cal|safe}}
+</center>
+{% endblock %}
+
+<br>
